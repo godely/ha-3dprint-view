@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>HA 3D Print View</title>
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+    }
+    body {
+      display: flex;
+      flex-direction: column;
+    }
+    #controls {
+      padding: 8px;
+      background: #f0f0f0;
+    }
+    #viewer {
+      flex: 1;
+    }
+  </style>
+  <script src="https://unpkg.com/online-3d-viewer@0.16.0/build/engine/o3dv.min.js"></script>
+</head>
+<body>
+  <div id="controls">
+    <input type="file" id="model-input" multiple />
+  </div>
+  <div id="viewer"></div>
+  <script>
+    const viewer = new OV.EmbeddedViewer(document.getElementById('viewer'), {
+      backgroundColor: new OV.RGBAColor(255, 255, 255, 255)
+    });
+
+    document.getElementById('model-input').addEventListener('change', (event) => {
+      const files = event.target.files;
+      if (files.length > 0) {
+        viewer.LoadModelFromFileList(files);
+      }
+    });
+  </script>
+</body>
+</html>
